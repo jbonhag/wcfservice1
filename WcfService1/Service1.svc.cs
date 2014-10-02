@@ -5,39 +5,37 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using System.Reflection;
+using System.Data.SqlClient;
+using Dapper;
 
 namespace WcfService1
 {
 	public class Service1 : IService1
     {
-		public Album Albums (int id)
-		{
-			// fake some data
-			var tracks = new Track[] {
-				new Track { Title = "The Miracle (of Joey Ramone)", Length = 255 },
-				new Track { Title = "Every Breaking Wave", Length = 252 }
-			};
 
-			var album = new Album {
-				Artist = "U2",
-				Tracks = tracks
-			};
+		public M5Response<T> MakeResponse<T>() {
+			var connectionString = "Server=eaa82709-81ce-49fd-87b6-a3b200e7b23b.sqlserver.sequelizer.com;Database=dbeaa8270981ce49fd87b6a3b200e7b23b;User ID=fdealsakpmsqlslo;Password=XRibr8JuHf8nkZ7af3C2ewEYys5DhkmzUszM2uGoGWztRUoSFSFGoGCAmsK8cfnw;";
 
-			return album;
-		}
+			M5Response<T> response = new M5Response<T> ();
 
-		public string SayHello (string name)
-		{
-			if (name != null) {
-				return string.Format ("Hello, {0}!", name);
-			} else {
-				return "Hello!";
+			using (var connection = new SqlConnection (connectionString)) {
+				connection.Open ();
+				response.rows = connection.Query<T> ("SELECT * FROM information_schema.tables");
 			}
+
+			return response;
 		}
 
-        public string GetData(int value)
-        {
-            return string.Format("You entered: {0}", value);
-        }
+		public object Which (string entity, string id)
+		{
+			var entityType = Type.GetType ("WcfService1." + entity);
+			Type myClass = typeof(Service1);
+
+			MethodInfo mi = myClass.GetMethod ("MakeResponse");
+			MethodInfo miConstructed = mi.MakeGenericMethod (entityType);
+			object[] args = {};
+			return miConstructed.Invoke(this, args);
+		}
     }
 }

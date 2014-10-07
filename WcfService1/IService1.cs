@@ -15,6 +15,6 @@ namespace WcfService1
 		[OperationContract]
 		[WebInvoke(Method = "GET",
 		           ResponseFormat = WebMessageFormat.Json)]
-		object GenericGet (string entity, string id);
+		object Which (string entity, string id);
     }
 }

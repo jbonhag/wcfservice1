@@ -13,7 +13,6 @@ namespace WcfService1
 {
 	public class Service1 : IService1
     {
-
 		public M5Response<T> MakeResponse<T>() {
 			var connectionString = "Server=eaa82709-81ce-49fd-87b6-a3b200e7b23b.sqlserver.sequelizer.com;Database=dbeaa8270981ce49fd87b6a3b200e7b23b;User ID=fdealsakpmsqlslo;Password=XRibr8JuHf8nkZ7af3C2ewEYys5DhkmzUszM2uGoGWztRUoSFSFGoGCAmsK8cfnw;";
 

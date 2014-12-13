@@ -10,6 +10,11 @@ namespace WcfService1
 {
 	public class Service1 : IService1
     {
+		public string PostTrack (Track track)
+		{
+			return string.Format ("The track title is: {0}.", track.Title);
+		}
+
 		public string PostIt (string text)
 		{
 			return string.Format ("{0}, I said.", text);

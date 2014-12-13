@@ -32,5 +32,11 @@ namespace WcfService1
 			RequestFormat = WebMessageFormat.Json,
 			ResponseFormat = WebMessageFormat.Json)]
 		string PostIt (string text);
+
+		[OperationContract]
+		[WebInvoke(Method = "POST",
+			RequestFormat = WebMessageFormat.Json,
+			ResponseFormat = WebMessageFormat.Json)]
+		string PostTrack (Track track);
     }
 }

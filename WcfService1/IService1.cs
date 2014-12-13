@@ -22,9 +22,15 @@ namespace WcfService1
 			ResponseFormat = WebMessageFormat.Json)]
 		string SayHello(string name);
 
-		[OperationContractAttribute]
+		[OperationContract]
 		[WebInvoke(Method = "GET",
 			ResponseFormat = WebMessageFormat.Json)]
 		Album Albums (int id);
+
+		[OperationContract]
+		[WebInvoke(Method = "POST",
+			RequestFormat = WebMessageFormat.Json,
+			ResponseFormat = WebMessageFormat.Json)]
+		string PostIt (string text);
     }
 }

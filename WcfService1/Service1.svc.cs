@@ -10,6 +10,11 @@ namespace WcfService1
 {
 	public class Service1 : IService1
     {
+		public string PostIt (string text)
+		{
+			return string.Format ("{0}, I said.", text);
+		}
+
 		public Album Albums (int id)
 		{
 			// fake some data
